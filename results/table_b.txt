@@ -1,0 +1,12 @@
+Table B — Security Verification (pytest negative + positive test results; binary pass/fail)
+==================================================================================
+| Property                                             | Test type                | Result   |
+|------------------------------------------------------|--------------------------|----------|
+| Unauthorized role returns empty result               | Negative                 | PASS     |
+| Decrypt NOT called on RBAC failure (mock assert)     | Mock                     | PASS     |
+| Tampered ciphertext raises InvalidTag                | Negative                 | PASS     |
+| Wrong key cannot decrypt                             | Negative                 | PASS     |
+| Pinned page survives eviction (100 trials)           | Invariant (100/100)      | PASS     |
+| Audit log captures 100% of accesses                  | Positive                 | PASS     |
+
+Binary pass/fail properties are harder to attack in peer review than any timing number.

@@ -1,0 +1,218 @@
+{
+  "benchmark": "index",
+  "seed": 42,
+  "n_trials": 7,
+  "scope_caveat": "SCADS dict O(1) average lookup vs Python/pandas O(n) boolean scan and DuckDB in-process OLAP (no network, no storage I/O). Results do not generalise to a networked production DBMS. Build time and memory overhead are the honest cost of the SCADS index.",
+  "sweep": [
+    {
+      "n": 50000,
+      "is_synthetic": false,
+      "build_time_s": 0.013422500000160653,
+      "index_memory_bytes": 93589,
+      "n_chunks": 301,
+      "n_lookups_per_trial": 200,
+      "miss_fraction": 0.2,
+      "duckdb_index": "CREATE INDEX on (time_window, region, data_type)",
+      "scads_latency_us": {
+        "mean": 0.09821428453246231,
+        "ci95_low": 0.0731999708234595,
+        "ci95_high": 0.12322859824146512,
+        "p50": 0.08799999704933725,
+        "p95": 0.138650001190399,
+        "p99": 0.1553300005070923,
+        "n": 7,
+        "seed": 42
+      },
+      "pandas_latency_us": {
+        "mean": 249.20464285709645,
+        "ci95_low": 245.92878895894484,
+        "ci95_high": 252.48049675524805,
+        "p50": 249.42550000105257,
+        "p95": 254.22795000076803,
+        "p99": 255.54159000084837,
+        "n": 7,
+        "seed": 42
+      },
+      "duckdb_latency_us": {
+        "mean": 196.78071428643307,
+        "ci95_low": 193.0432808160467,
+        "ci95_high": 200.51814775681945,
+        "p50": 196.35550000202784,
+        "p95": 202.9506500016396,
+        "p99": 204.85973000204464,
+        "n": 7,
+        "seed": 42
+      },
+      "speedup_scads_vs_pandas_scan": 2537.3563941681823,
+      "note": "Speedup is 'dict O(1) average vs Python/pandas O(n) boolean scan'. DuckDB has an explicit ART index \u2014 comparison is fair."
+    },
+    {
+      "n": 100000,
+      "is_synthetic": false,
+      "build_time_s": 0.027233800000431074,
+      "index_memory_bytes": 101155,
+      "n_chunks": 328,
+      "n_lookups_per_trial": 200,
+      "miss_fraction": 0.2,
+      "duckdb_index": "CREATE INDEX on (time_window, region, data_type)",
+      "scads_latency_us": {
+        "mean": 0.09692857085091029,
+        "ci95_low": 0.07343738849205765,
+        "ci95_high": 0.12041975320976293,
+        "p50": 0.0869999985297909,
+        "p95": 0.1348499990854179,
+        "p99": 0.15056999873195306,
+        "n": 7,
+        "seed": 42
+      },
+      "pandas_latency_us": {
+        "mean": 248.60771428588382,
+        "ci95_low": 245.43109961652098,
+        "ci95_high": 251.78432895524665,
+        "p50": 250.23449999935113,
+        "p95": 251.58990000227277,
+        "p99": 251.87478000289047,
+        "n": 7,
+        "seed": 42
+      },
+      "duckdb_latency_us": {
+        "mean": 194.31914285762883,
+        "ci95_low": 192.7380413396408,
+        "ci95_high": 195.90024437561686,
+        "p50": 194.08900000144058,
+        "p95": 196.8157000010251,
+        "p99": 197.5371400003496,
+        "n": 7,
+        "seed": 42
+      },
+      "speedup_scads_vs_pandas_scan": 2564.854842111283,
+      "note": "Speedup is 'dict O(1) average vs Python/pandas O(n) boolean scan'. DuckDB has an explicit ART index \u2014 comparison is fair."
+    },
+    {
+      "n": 200000,
+      "is_synthetic": false,
+      "build_time_s": 0.05262299999958486,
+      "index_memory_bytes": 118769,
+      "n_chunks": 358,
+      "n_lookups_per_trial": 200,
+      "miss_fraction": 0.2,
+      "duckdb_index": "CREATE INDEX on (time_window, region, data_type)",
+      "scads_latency_us": {
+        "mean": 0.09907142871920119,
+        "ci95_low": 0.06687351534649952,
+        "ci95_high": 0.13126934209190286,
+        "p50": 0.08600000001024455,
+        "p95": 0.15084999949976913,
+        "p99": 0.1725700000861252,
+        "n": 7,
+        "seed": 42
+      },
+      "pandas_latency_us": {
+        "mean": 249.45457142816198,
+        "ci95_low": 246.34763571831851,
+        "ci95_high": 252.56150713800545,
+        "p50": 250.70050000067565,
+        "p95": 251.8341000018154,
+        "p99": 251.8840200032173,
+        "n": 7,
+        "seed": 42
+      },
+      "duckdb_latency_us": {
+        "mean": 191.46085714315373,
+        "ci95_low": 182.95618963233116,
+        "ci95_high": 199.9655246539763,
+        "p50": 185.9264999984589,
+        "p95": 205.07969999880515,
+        "p99": 205.99793999817848,
+        "n": 7,
+        "seed": 42
+      },
+      "speedup_scads_vs_pandas_scan": 2517.9264562257677,
+      "note": "Speedup is 'dict O(1) average vs Python/pandas O(n) boolean scan'. DuckDB has an explicit ART index \u2014 comparison is fair."
+    },
+    {
+      "n": 300000,
+      "is_synthetic": false,
+      "build_time_s": 0.07779339999979129,
+      "index_memory_bytes": 118769,
+      "n_chunks": 358,
+      "n_lookups_per_trial": 200,
+      "miss_fraction": 0.2,
+      "duckdb_index": "CREATE INDEX on (time_window, region, data_type)",
+      "scads_latency_us": {
+        "mean": 0.1891428564704256,
+        "ci95_low": 0.027925637979598544,
+        "ci95_high": 0.35036007496125265,
+        "p50": 0.13299999864102574,
+        "p95": 0.45050000062474255,
+        "p99": 0.5561000014495219,
+        "n": 7,
+        "seed": 42
+      },
+      "pandas_latency_us": {
+        "mean": 248.25935714164058,
+        "ci95_low": 245.39857797954147,
+        "ci95_high": 251.12013630373968,
+        "p50": 249.13350000133505,
+        "p95": 251.30919999855902,
+        "p99": 251.4498399988042,
+        "n": 7,
+        "seed": 42
+      },
+      "duckdb_latency_us": {
+        "mean": 193.56114285723638,
+        "ci95_low": 186.08172251998812,
+        "ci95_high": 201.04056319448463,
+        "p50": 193.29749999997148,
+        "p95": 204.08840000209238,
+        "p99": 205.5876800034639,
+        "n": 7,
+        "seed": 42
+      },
+      "speedup_scads_vs_pandas_scan": 1312.549475958974,
+      "note": "Speedup is 'dict O(1) average vs Python/pandas O(n) boolean scan'. DuckDB has an explicit ART index \u2014 comparison is fair."
+    },
+    {
+      "n": 494021,
+      "is_synthetic": false,
+      "build_time_s": 0.13136690000010276,
+      "index_memory_bytes": 122132,
+      "n_chunks": 370,
+      "n_lookups_per_trial": 200,
+      "miss_fraction": 0.2,
+      "duckdb_index": "CREATE INDEX on (time_window, region, data_type)",
+      "scads_latency_us": {
+        "mean": 0.10249999961940505,
+        "ci95_low": 0.06536924373016487,
+        "ci95_high": 0.13963075550864523,
+        "p50": 0.08700000307726441,
+        "p95": 0.16229999982897417,
+        "p99": 0.187259999984235,
+        "n": 7,
+        "seed": 42
+      },
+      "pandas_latency_us": {
+        "mean": 255.04957142792202,
+        "ci95_low": 250.6661361057914,
+        "ci95_high": 259.43300675005264,
+        "p50": 255.77949999842528,
+        "p95": 259.8790499982897,
+        "p99": 260.01740999863614,
+        "n": 7,
+        "seed": 42
+      },
+      "duckdb_latency_us": {
+        "mean": 206.33500000193246,
+        "ci95_low": 202.36265078572788,
+        "ci95_high": 210.30734921813703,
+        "p50": 205.94900000105554,
+        "p95": 211.9271500027935,
+        "p99": 212.81743000317874,
+        "n": 7,
+        "seed": 42
+      },
+      "speedup_scads_vs_pandas_scan": 2488.288510975142,
+      "note": "Speedup is 'dict O(1) average vs Python/pandas O(n) boolean scan'. DuckDB has an explicit ART index \u2014 comparison is fair."
+    }
+  ]
+}

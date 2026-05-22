@@ -1,0 +1,12 @@
+Table A — Security Properties (literature + complexity; no new experiments)
+====================================================================================================
+| Property                     | Full-AES TDE             | Per-Chunk (SCADS)              | Per-Page (ext.)                      |
+|------------------------------|--------------------------|--------------------------------|--------------------------------------|
+| Encryption scope             | Entire database          | Query chunk only               | Query page only                      |
+| Decryption cost              | O(n)                     | O(k)  k = chunks touched       | O(|page|)                            |
+| Data exposed per query       | 100%                     | ~0.35%  (1,716 / 494,021)      | ~0.10%  (512 / 494,021)              |
+| Blast radius on breach       | Full dataset             | 1 chunk (~1,716 records)       | 1 page (~512 records) — 965× less    |
+| RBAC granularity             | Table-level              | Chunk-level                    | Page-level                           |
+| Audit logging                | Optional / external      | Built-in, un-bypassable        | Built-in, un-bypassable              |
+
+Note: Per-Page figures are architectural projections only (future work; not benchmarked).

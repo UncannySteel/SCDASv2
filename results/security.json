@@ -1,0 +1,57 @@
+{
+  "benchmark": "security",
+  "seed": 42,
+  "n_trials": 10,
+  "is_synthetic": false,
+  "scope_caveat": "AES-256-GCM in-process encrypt+decrypt round-trip latency for payloads of ~512 (per-page), ~1716 (per-chunk), and ~494,021 (full dataset) records serialised as compact JSON. Single-threaded wall-clock; not a throughput or hardware-AES benchmark. Numbers scale with JSON serialisation cost, not AES alone.",
+  "scopes": {
+    "per_page": {
+      "n_records": 512,
+      "payload_bytes": 416816,
+      "latency_ms": {
+        "mean": 0.1441000000340864,
+        "ci95_low": 0.09639615348367936,
+        "ci95_high": 0.19180384658449345,
+        "p50": 0.12095000010958756,
+        "p95": 0.24839499988047442,
+        "p99": 0.31567899980473163,
+        "n": 10,
+        "seed": 42
+      }
+    },
+    "per_chunk": {
+      "n_records": 1609,
+      "target_n_records": 1716,
+      "payload_bytes": 1313696,
+      "latency_ms": {
+        "mean": 0.5330199998752505,
+        "ci95_low": 0.33866826059797495,
+        "ci95_high": 0.7273717391525261,
+        "p50": 0.43144999972355436,
+        "p95": 0.979645000325035,
+        "p99": 1.2272890004078365,
+        "n": 10,
+        "seed": 42
+      }
+    },
+    "full_dataset": {
+      "n_records": 494021,
+      "payload_bytes": 402456528,
+      "latency_ms": {
+        "mean": 397.3873499999172,
+        "ci95_low": 391.1916100615783,
+        "ci95_high": 403.58308993825614,
+        "p50": 400.8699500000148,
+        "p95": 403.045555000017,
+        "p99": 403.31055099994956,
+        "n": 10,
+        "seed": 42
+      }
+    }
+  },
+  "ratios": {
+    "full_vs_chunk_median": 929.1226103995056,
+    "chunk_vs_page_median": 3.5671765137051357,
+    "note": "Ratios reflect serialisation + AES cost; per-chunk is the SCADS operating point."
+  }
+}
