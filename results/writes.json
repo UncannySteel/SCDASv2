@@ -1,0 +1,80 @@
+{
+  "benchmark": "writes",
+  "seed": 42,
+  "n_updates": 1000,
+  "scope_caveat": "S1: end-to-end insert throughput (segment + SmartIndex build + AES-256-GCM encrypt-and-store per chunk). S2: per-update latency for in-chunk updates (decrypt one chunk, mutate one record, re-encrypt). S3: per-update latency for cross-chunk updates (decrypt chunk A, remove record, re-encrypt A, decrypt/create chunk B, insert record, re-encrypt B, update SmartIndex). Single-threaded wall-clock; synthetic or real KDD Cup 1999 (10 pct subset) data.",
+  "insert_throughput": [
+    {
+      "n": 10000,
+      "n_trials": 5,
+      "n_chunks_mean": 576.0,
+      "records_per_sec_mean": 167011.6657430522,
+      "records_per_sec_ci95_low": 165997.8718223941,
+      "records_per_sec_ci95_high": 168025.4596637103,
+      "records_per_sec_p50": 166481.59462764038,
+      "records_per_sec_p95": 167969.65960330877,
+      "records_per_sec_p99": 168007.27647711744,
+      "chunks_per_sec_mean": 9619.871946799807,
+      "chunks_per_sec_ci95_low": 9561.4774169699,
+      "chunks_per_sec_ci95_high": 9678.266476629715
+    },
+    {
+      "n": 100000,
+      "n_trials": 5,
+      "n_chunks_mean": 328.0,
+      "records_per_sec_mean": 226707.96816553958,
+      "records_per_sec_ci95_low": 213510.39754066666,
+      "records_per_sec_ci95_high": 239905.5387904125,
+      "records_per_sec_p50": 222840.62972976227,
+      "records_per_sec_p95": 241066.78043981522,
+      "records_per_sec_p99": 244648.5966682369,
+      "chunks_per_sec_mean": 743.6021355829698,
+      "chunks_per_sec_ci95_low": 700.3141039333867,
+      "chunks_per_sec_ci95_high": 786.8901672325529
+    },
+    {
+      "n": 494021,
+      "n_trials": 3,
+      "n_chunks_mean": 370.0,
+      "records_per_sec_mean": 233779.1508999255,
+      "records_per_sec_ci95_low": 226757.147250539,
+      "records_per_sec_ci95_high": 240801.154549312,
+      "records_per_sec_p50": 233481.19847323952,
+      "records_per_sec_p95": 236416.6696544925,
+      "records_per_sec_p99": 236677.60042615942,
+      "chunks_per_sec_mean": 175.09030149117635,
+      "chunks_per_sec_ci95_low": 169.83112961331489,
+      "chunks_per_sec_ci95_high": 180.3494733690378
+    }
+  ],
+  "in_chunk_update_us": {
+    "mean": 2527.4729000016123,
+    "ci95_low": 1626.9492431127555,
+    "ci95_high": 3427.996556890469,
+    "p50": 1662.1999998278625,
+    "p95": 2907.87000005821,
+    "p99": 6890.3729999464385
+  },
+  "cross_chunk_update_us": {
+    "mean": 4419.0669999889,
+    "ci95_low": 3311.9619129034386,
+    "ci95_high": 5526.172087074361,
+    "p50": 2311.400000053254,
+    "p95": 4915.164999965782,
+    "p99": 20781.78200000248
+  },
+  "in_chunk_breakdown_us": {
+    "decrypt": 98.49880000456324,
+    "mutate": 2339.4538999909855,
+    "encrypt": 88.77119999669958,
+    "index": 0.0
+  },
+  "cross_chunk_breakdown_us": {
+    "decrypt": 168.21380000055797,
+    "mutate": 4104.171500007396,
+    "encrypt": 144.4299999998293,
+    "index": 1.1175999984516238
+  },
+  "s3_s2_ratio": 1.7484132075109808,
+  "dominant_s3_component": "mutate"
+}

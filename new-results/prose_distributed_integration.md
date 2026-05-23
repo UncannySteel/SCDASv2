@@ -1,0 +1,13 @@
+# Distributed-System Integration (Section IV addendum)
+
+SCADS is positioned as a co-design *framework*, not a competitor to distributed storage engines. The four-layer chunk abstraction is designed to map naturally onto existing partition and block primitives of mature distributed systems, so SCADS can act as a middleware layer above them rather than replacing them.
+
+**Chunk-key to partition-key mapping.** A SCADS `chunk_key = (time_window, region, data_type)` is a three-component tuple chosen so each component already corresponds to a natural partition axis in production systems. The mapping is direct:
+
+- **Apache Kafka**: `chunk_key` can be serialized as the Kafka `partition_key`, sending all records sharing a `(time_window, region, data_type)` triple to the same broker partition. Kafka's default murmur2 hash partitioner preserves the locality that SCADS exploits at the cache layer — records that belong to the same SCADS chunk land in the same Kafka partition, so the SCADS scoring function continues to operate on locality that is preserved end-to-end.
+- **Apache HDFS / object stores**: `chunk_key` maps to a directory prefix (e.g., `s3://bucket/<time_window>/<region>/<data_type>/`), giving each encrypted chunk-blob a deterministic, range-scannable location. HDFS block boundaries align with chunk boundaries, so HDFS-level replication and locality scheduling apply per-chunk without modification.
+- **Apache Cassandra**: `(time_window, region)` can serve as the partition key with `data_type` as the clustering column, yielding O(1) partition lookup and ordered intra-partition scans — preserving the same access pattern the SCADS index provides in-process.
+
+**Layer-by-layer integration.** Segmentation (Layer 1) and indexing (Layer 2) run client-side or in a SCADS coordinator, producing the chunk_key and the small per-key index that becomes the cluster's routing table. The cache (Layer 3) sits in front of the distributed store and remains in-process — its scoring function exploits the locality the partition scheme already preserves. The encryption layer (Layer 4) operates per-chunk before the chunk leaves the SCADS coordinator, so chunks are written to distributed storage as opaque AES-GCM blobs. The distributed storage layer never sees plaintext and need not be modified.
+
+**Scope.** This section establishes architectural compatibility, not empirical performance under cluster deployment. End-to-end measurement against Spark/Cassandra/Kafka clusters is reserved for follow-on work; the present PoC isolates and validates the in-process co-design contributions (chunk-granularity index, context-aware cache, per-chunk encryption) on a single node so the layer-level effects can be measured without cluster confounders.

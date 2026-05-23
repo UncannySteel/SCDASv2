@@ -1,0 +1,252 @@
+{
+  "benchmark": "baseline_sql",
+  "seed": 42,
+  "n_trials": 7,
+  "scope_caveat": "SCADS dict O(1) average lookup vs SQLite B-tree indexed point-lookup and SQLite full-scan (no index). In-process :memory: SQLite, single thread. Results do not generalise to a networked production RDBMS. Build time and SQLite file size are the honest cost of each approach.",
+  "sweep": [
+    {
+      "n": 50000,
+      "is_synthetic": false,
+      "n_chunks": 301,
+      "n_lookups_per_trial": 200,
+      "miss_fraction": 0.2,
+      "n_trials": 7,
+      "scads_build_time_s": 0.013240999999652558,
+      "scads_index_memory_bytes": 93589,
+      "sqlite_indexed_build_time_s": 0.00407679999989341,
+      "sqlite_file_size_bytes": 28672,
+      "scads_latency_us": {
+        "mean": 0.10064285723793935,
+        "ci95_low": 0.08186281153336905,
+        "ci95_high": 0.11942290294250965,
+        "p50": 0.09300000101575279,
+        "p95": 0.1312000008510949,
+        "p99": 0.1434400012840342,
+        "n": 7,
+        "seed": 42
+      },
+      "sqlite_indexed_latency_us": {
+        "mean": 1.6219285719541534,
+        "ci95_low": 1.1945802770548832,
+        "ci95_high": 2.0492768668534236,
+        "p50": 1.393000000007305,
+        "p95": 2.204149999670335,
+        "p99": 2.262830000108806,
+        "n": 7,
+        "seed": 42
+      },
+      "sqlite_unindexed_latency_us": {
+        "mean": 6.407999999932405,
+        "ci95_low": 6.0018983908988774,
+        "ci95_high": 6.814101608965932,
+        "p50": 6.229999999050051,
+        "p95": 7.08690000055867,
+        "p99": 7.296180000685126,
+        "n": 7,
+        "seed": 42
+      },
+      "speedup_scads_vs_sqlite_indexed": 16.115684872892647,
+      "honest_note": "SCADS faster"
+    },
+    {
+      "n": 100000,
+      "is_synthetic": false,
+      "n_chunks": 328,
+      "n_lookups_per_trial": 200,
+      "miss_fraction": 0.2,
+      "n_trials": 7,
+      "scads_build_time_s": 0.027000699999916833,
+      "scads_index_memory_bytes": 101155,
+      "sqlite_indexed_build_time_s": 0.000403099999857659,
+      "sqlite_file_size_bytes": 28672,
+      "scads_latency_us": {
+        "mean": 0.09892857211265696,
+        "ci95_low": 0.07890893014067603,
+        "ci95_high": 0.11894821408463789,
+        "p50": 0.09099999942918657,
+        "p95": 0.13105000130053662,
+        "p99": 0.14461000141636757,
+        "n": 7,
+        "seed": 42
+      },
+      "sqlite_indexed_latency_us": {
+        "mean": 1.2262857148925832,
+        "ci95_low": 1.1587099926026316,
+        "ci95_high": 1.2938614371825348,
+        "p50": 1.201500001570821,
+        "p95": 1.3406499999746302,
+        "p99": 1.376529999788545,
+        "n": 7,
+        "seed": 42
+      },
+      "sqlite_unindexed_latency_us": {
+        "mean": 6.898428571275872,
+        "ci95_low": 6.042762826525858,
+        "ci95_high": 7.754094316025886,
+        "p50": 6.563000001733599,
+        "p95": 8.289749999221383,
+        "p99": 8.851949999643692,
+        "n": 7,
+        "seed": 42
+      },
+      "speedup_scads_vs_sqlite_indexed": 12.395667790455168,
+      "honest_note": "SCADS faster"
+    },
+    {
+      "n": 200000,
+      "is_synthetic": false,
+      "n_chunks": 358,
+      "n_lookups_per_trial": 200,
+      "miss_fraction": 0.2,
+      "n_trials": 7,
+      "scads_build_time_s": 0.05162240000026941,
+      "scads_index_memory_bytes": 118769,
+      "sqlite_indexed_build_time_s": 0.0008348999999725493,
+      "sqlite_file_size_bytes": 28672,
+      "scads_latency_us": {
+        "mean": 0.09842857155360564,
+        "ci95_low": 0.07534604601396688,
+        "ci95_high": 0.1215110970932444,
+        "p50": 0.08900000011635711,
+        "p95": 0.13565000017479173,
+        "p99": 0.15113000017663578,
+        "n": 7,
+        "seed": 42
+      },
+      "sqlite_indexed_latency_us": {
+        "mean": 1.2554285720917895,
+        "ci95_low": 1.1908565853521311,
+        "ci95_high": 1.3200005588314478,
+        "p50": 1.2320000018917199,
+        "p95": 1.3627999996970175,
+        "p99": 1.3985599991428899,
+        "n": 7,
+        "seed": 42
+      },
+      "sqlite_unindexed_latency_us": {
+        "mean": 7.608214286197575,
+        "ci95_low": 6.988788148427249,
+        "ci95_high": 8.227640423967902,
+        "p50": 7.4400000016794365,
+        "p95": 8.658150000883325,
+        "p99": 8.836830000473128,
+        "n": 7,
+        "seed": 42
+      },
+      "speedup_scads_vs_sqlite_indexed": 12.754716971667772,
+      "honest_note": "SCADS faster"
+    },
+    {
+      "n": 300000,
+      "is_synthetic": false,
+      "n_chunks": 358,
+      "n_lookups_per_trial": 200,
+      "miss_fraction": 0.2,
+      "n_trials": 7,
+      "scads_build_time_s": 0.07781769999974131,
+      "scads_index_memory_bytes": 118769,
+      "sqlite_indexed_build_time_s": 0.0004480000002331508,
+      "sqlite_file_size_bytes": 28672,
+      "scads_latency_us": {
+        "mean": 0.09714285657277547,
+        "ci95_low": 0.07026466264031152,
+        "ci95_high": 0.12402105050523941,
+        "p50": 0.08649999927001772,
+        "p95": 0.14049999958842813,
+        "p99": 0.15849999967940673,
+        "n": 7,
+        "seed": 42
+      },
+      "sqlite_indexed_latency_us": {
+        "mean": 1.230999999474339,
+        "ci95_low": 1.1478482792543794,
+        "ci95_high": 1.3141517196942987,
+        "p50": 1.1915000004592002,
+        "p95": 1.3685499995972348,
+        "p99": 1.4193099992098723,
+        "n": 7,
+        "seed": 42
+      },
+      "sqlite_unindexed_latency_us": {
+        "mean": 7.463214286157641,
+        "ci95_low": 7.091437265399995,
+        "ci95_high": 7.8349913069152874,
+        "p50": 7.310000000870787,
+        "p95": 8.074700000634039,
+        "p99": 8.131340000818454,
+        "n": 7,
+        "seed": 42
+      },
+      "speedup_scads_vs_sqlite_indexed": 12.672058892484019,
+      "honest_note": "SCADS faster"
+    },
+    {
+      "n": 494021,
+      "is_synthetic": false,
+      "n_chunks": 370,
+      "n_lookups_per_trial": 200,
+      "miss_fraction": 0.2,
+      "n_trials": 7,
+      "scads_build_time_s": 0.1293508999997357,
+      "scads_index_memory_bytes": 122132,
+      "sqlite_indexed_build_time_s": 0.0004475000000638829,
+      "sqlite_file_size_bytes": 28672,
+      "scads_latency_us": {
+        "mean": 0.17935714302958722,
+        "ci95_low": 0.14507344056464616,
+        "ci95_high": 0.21364084549452828,
+        "p50": 0.170999999227206,
+        "p95": 0.22390000003724708,
+        "p99": 0.22917999986020732,
+        "n": 7,
+        "seed": 42
+      },
+      "sqlite_indexed_latency_us": {
+        "mean": 1.4219285721342854,
+        "ci95_low": 1.078479135219776,
+        "ci95_high": 1.7653780090487947,
+        "p50": 1.2300000003051537,
+        "p95": 2.022150001266709,
+        "p99": 2.1420300016870897,
+        "n": 7,
+        "seed": 42
+      },
+      "sqlite_unindexed_latency_us": {
+        "mean": 7.411499999696908,
+        "ci95_low": 7.199262251897324,
+        "ci95_high": 7.6237377474964925,
+        "p50": 7.328500000767235,
+        "p95": 7.75320000047941,
+        "p99": 7.838640000591113,
+        "n": 7,
+        "seed": 42
+      },
+      "speedup_scads_vs_sqlite_indexed": 7.92791716078863,
+      "honest_note": "SCADS faster"
+    }
+  ],
+  "validation": {
+    "fig5_scads_vs_sqlite_latency.png": {
+      "path": "C:\\Users\\aniraj\\Desktop\\japan\\code-new\\.claude\\worktrees\\agent-aade8086b143ca12e\\new-results\\fig5_scads_vs_sqlite_latency.png",
+      "exists": true,
+      "size_bytes": 74485,
+      "pil_ok": true,
+      "dimensions": [
+        1165,
+        701
+      ],
+      "passed": true
+    },
+    "fig6_throughput_comparison.png": {
+      "path": "C:\\Users\\aniraj\\Desktop\\japan\\code-new\\.claude\\worktrees\\agent-aade8086b143ca12e\\new-results\\fig6_throughput_comparison.png",
+      "exists": true,
+      "size_bytes": 49569,
+      "pil_ok": true,
+      "dimensions": [
+        920,
+        683
+      ],
+      "passed": true
+    }
+  }
+}
